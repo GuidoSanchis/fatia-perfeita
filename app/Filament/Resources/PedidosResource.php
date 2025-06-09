@@ -97,9 +97,11 @@ class PedidosResource extends Resource
                             ->label('Criado em')
                             ->dateTime(fn($state) => $state->format('d/m/Y H:i:s')),
                         TextEntry::make('subtotal')
-                            ->label('Subtotal'),
+                            ->label('Subtotal')
+                            ->money('BRL'),
                         TextEntry::make('total')
-                            ->label('Total'),
+                            ->label('Total')
+                            ->money('BRL'),
 
                     ]),
             ])->columns(3);

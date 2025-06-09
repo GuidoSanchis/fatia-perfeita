@@ -4,6 +4,7 @@ namespace App\Filament\Resources\PedidosResource\RelationManagers;
 
 use App\Enums\ProdutosTipos;
 use App\Enums\Status;
+use Dom\Text;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\TextEntry;
@@ -35,7 +36,10 @@ class ProdutosRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                 ImageColumn::make('imagem')
+                TextColumn::make('quantidade')
+                    ->label('Quantidade')
+                    ->sortable(),
+                ImageColumn::make('imagem')
                     ->label('Imagem')
                     ->disk('public'),
                 TextColumn::make('nome')
@@ -48,15 +52,8 @@ class ProdutosRelationManager extends RelationManager
                     ->formatStateUsing(fn($state) => ProdutosTipos::from($state)->getLabel())
                     ->color(fn($state) => ProdutosTipos::from($state)->getColor())
                     ->icon(fn($state) => ProdutosTipos::from($state)->getIcon()),
-                TextColumn::make('situacao')
-                    ->label('Situação')
-                    ->sortable()
-                    ->badge()
-                    ->formatStateUsing(fn($state) => Status::from($state)->getLabel())
-                    ->color(fn($state) => Status::from($state)->getColor())
-                    ->icon(fn($state) => Status::from($state)->getIcon()),
-                TextColumn::make('preco_base')
-                    ->label('Preço Base')
+                TextColumn::make('preco')
+                    ->label('Preço ')
                     ->money('BRL')
                     ->sortable(),
             ])
@@ -76,5 +73,4 @@ class ProdutosRelationManager extends RelationManager
                 ]),
             ]);
     }
-
 }
