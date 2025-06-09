@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ProdutosTipos;
+use App\Enums\Status;
 use App\Filament\Resources\ProdutosResource\Pages;
 use App\Models\Produto;
 use Filament\Forms\Components\FileUpload;
@@ -18,6 +20,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class ProdutosResource extends Resource
 {
@@ -49,10 +52,7 @@ class ProdutosResource extends Resource
                                     ->label('Tipo de Produto')
                                     ->required()
                                     ->native(false)
-                                    ->options([
-                                        'produto' => 'Produto',
-                                        'servico' => 'Serviço',
-                                    ])
+                                    ->options(ProdutosTipos::class)
                                     ->placeholder('Selecione o tipo de produto'),
                                 TextInput::make('preco_base')
                                     ->label('Preço Base')
@@ -96,10 +96,7 @@ class ProdutosResource extends Resource
                                     ->label('Situação do Produto')
                                     ->required()
                                     ->native(false)
-                                    ->options([
-                                        'ativo' => 'Ativo',
-                                        'inativo' => 'Inativo',
-                                    ])
+                                    ->options(Status::class)
                                     ->placeholder('Selecione a situação do produto'),
                             ]),
 
@@ -127,18 +124,18 @@ class ProdutosResource extends Resource
                     ->sortable(),
                 TextColumn::make('tipo')
                     ->label('Tipo')
-                    ->sortable(),
-                IconColumn::make('situacao')
+                    ->sortable()
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => ProdutosTipos::from($state)->getLabel())
+                    ->color(fn ($state) => ProdutosTipos::from($state)->getColor())
+                    ->icon(fn ($state) => ProdutosTipos::from($state)->getIcon()),
+                TextColumn::make('situacao')
                     ->label('Situação')
                     ->sortable()
-                    ->icon(fn(string $state): string => match ($state) {
-                        'ativo' => 'heroicon-o-check-circle',
-                        'inativo' => 'heroicon-o-x-circle',
-                    })
-                    ->color(fn(string $state): string => match ($state) {
-                        'ativo' => 'success',
-                        'inativo' => 'danger',
-                    }),
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => Status::from($state)->getLabel())
+                    ->color(fn ($state) => Status::from($state)->getColor())
+                    ->icon(fn ($state) => Status::from($state)->getIcon()),
                 TextColumn::make('preco_base')
                     ->label('Preço Base')
                     ->sortable(),
