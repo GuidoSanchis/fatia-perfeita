@@ -6,9 +6,15 @@ use App\Enums\PedidosStatus;
 use App\Enums\Status;
 use App\Filament\Resources\PedidosResource\Pages;
 use App\Filament\Resources\PedidosResource\RelationManagers;
+use App\Filament\Resources\PedidosResource\RelationManagers\ProdutosRelationManager;
 use App\Models\Pedido;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
+use Filament\Infolists\Components\Section as InfolistSection;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -69,10 +75,39 @@ class PedidosResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+
+            ->schema([
+                InfolistSection::make('Pedido')
+                    ->columns(3)
+                    ->schema([
+                        TextEntry::make('codigo')
+                            ->label('Código'),
+                        TextEntry::make('mesa.numero')
+                            ->label('Mesa'),
+                        TextEntry::make('situacao')
+                            ->label('Situação')
+                            ->badge()
+                            ->formatStateUsing(fn($state) => PedidosStatus::from($state)->getLabel())
+                            ->color(fn($state) => PedidosStatus::from($state)->getColor())
+                            ->icon(fn($state) => PedidosStatus::from($state)->getIcon()),
+                        TextEntry::make('created_at')
+                            ->label('Criado em')
+                            ->dateTime(fn($state) => $state->format('d/m/Y H:i:s')),
+                        TextEntry::make('subtotal')
+                            ->label('Subtotal'),
+                        TextEntry::make('total')
+                            ->label('Total'),
+
+                    ]),
+            ])->columns(3);
+    }
     public static function getRelations(): array
     {
         return [
-            //
+            ProdutosRelationManager::class,
         ];
     }
 
@@ -81,7 +116,8 @@ class PedidosResource extends Resource
         return [
             'index' => Pages\ListPedidos::route('/'),
             'create' => Pages\CreatePedidos::route('/create'),
-            'edit' => Pages\EditPedidos::route('/{record}/edit'),
+            'view' => Pages\ViewPedidos::route('/{record}'),
+            // 'edit' => Pages\EditPedidos::route('/{record}/edit'),
         ];
     }
 }
