@@ -25,7 +25,11 @@ class IngredientesResource extends Resource
 {
     protected static ?string $model = Ingrediente::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-beaker';
+    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+
+    protected static ?string $navigationGroup = 'Cadastro';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

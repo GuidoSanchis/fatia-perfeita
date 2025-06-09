@@ -13,8 +13,7 @@ class ListIngredientes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('Adicionar Ingrediente')
-                ->icon('heroicon-o-plus'),
+            Actions\CreateAction::make(),
         ];
     }
 }
