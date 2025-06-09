@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\MesasStatus;
 use App\Filament\Resources\MesasResource\Pages;
 use App\Filament\Resources\MesasResource\RelationManagers;
 use App\Models\Mesa;
@@ -20,7 +21,7 @@ class MesasResource extends Resource
 {
     protected static ?string $model = Mesa::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
 
     public static function form(Form $form): Form
     {
@@ -37,11 +38,7 @@ class MesasResource extends Resource
                     ->required()
                     ->placeholder('Selecione a situação da mesa')
                     ->native(false)
-                    ->options([
-                        'disponivel' => 'Disponível',
-                        'ocupada' => 'Ocupada',
-                        'reservada' => 'Reservada',
-                    ])
+                    ->options(MesasStatus::class)
             ]);
     }
 
@@ -57,6 +54,9 @@ class MesasResource extends Resource
                     ->label('Situação da Mesa')
                     ->badge()
                     ->sortable()
+                    ->formatStateUsing(fn ($state) => MesasStatus::from($state)->getLabel())
+                    ->color(fn ($state) => MesasStatus::from($state)->getColor())
+                    ->icon(fn ($state) => MesasStatus::from($state)->getIcon())
                     ->searchable(),
             ])
             ->filters([

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Status;
 use App\Filament\Resources\IngredientesResource\Pages;
 use App\Filament\Resources\IngredientesResource\RelationManagers;
 use App\Models\Ingrediente;
@@ -44,10 +45,8 @@ class IngredientesResource extends Resource
                     ->maxLength(255),
                     Select::make('situacao')
                     ->label('Situação')
-                    ->options([
-                        'ativo' => 'Ativo',
-                        'inativo' => 'Inativo',
-                    ])
+                    ->options(Status::class)
+                    ->native(false)
                     ->default('ativo')
                     ->required()
             ]);
@@ -69,6 +68,11 @@ class IngredientesResource extends Resource
                 TextColumn::make('situacao')
                     ->label('Situação')
                     ->badge()
+                    ->sortable()
+                    ->formatStateUsing(fn ($state) => Status::from($state)->getLabel())
+                    ->color(fn ($state) => Status::from($state)->getColor())
+                    ->icon(fn ($state) => Status::from($state)->getIcon())
+                    ->searchable(),
             ])
             ->filters([
                 //
