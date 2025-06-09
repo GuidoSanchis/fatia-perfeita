@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PedidosStatus;
 use App\Enums\Status;
 use App\Filament\Resources\PedidosResource\Pages;
 use App\Filament\Resources\PedidosResource\RelationManagers;
@@ -48,9 +49,9 @@ class PedidosResource extends Resource
                     ->label('Situação')
                     ->sortable()
                     ->badge()
-                    ->formatStateUsing(fn($state) => Status::from($state)->getLabel())
-                    ->color(fn($state) => Status::from($state)->getColor())
-                    ->icon(fn($state) => Status::from($state)->getIcon()),
+                    ->formatStateUsing(fn($state) => PedidosStatus::from($state)->getLabel())
+                    ->color(fn($state) => PedidosStatus::from($state)->getColor())
+                    ->icon(fn($state) => PedidosStatus::from($state)->getIcon()),
                 TextColumn::make('data')
                     ->label('Data')
                     ->sortable(),

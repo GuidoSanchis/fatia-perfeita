@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             IngredientesSeeder::class,
             ProdutosSeeder::class,
             ProdutoIngredienteSeeder::class,
+            MesasSeeder::class,
+            PedidosSeeder::class,
         ]);
     }
 }

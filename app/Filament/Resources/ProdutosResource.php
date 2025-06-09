@@ -61,6 +61,7 @@ class ProdutosResource extends Resource
                                     ->label('Preço Base')
                                     ->required()
                                     ->numeric()
+                                    ->prefix('R$')
                                     ->placeholder('Digite o preço base do produto'),
 
                                 RichEditor::make('descricao')
@@ -168,6 +169,7 @@ class ProdutosResource extends Resource
                     ->icon(fn($state) => Status::from($state)->getIcon()),
                 TextColumn::make('preco_base')
                     ->label('Preço Base')
+                    ->money('BRL')
                     ->sortable(),
             ])
             ->filters([

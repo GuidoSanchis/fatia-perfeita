@@ -8,7 +8,7 @@ use Filament\Support\Contracts\HasLabel;
 
 enum PedidosStatus: string implements HasColor, HasIcon, HasLabel
 {
-    case Novo = 'rodizio';
+    case Novo = 'novo';
     case EmAndamento = 'em_andamento';
     case Concluido = 'concluido';
     case Cancelado = 'cancelado';
