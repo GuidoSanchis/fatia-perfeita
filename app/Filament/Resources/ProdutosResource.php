@@ -5,9 +5,12 @@ namespace App\Filament\Resources;
 use App\Enums\ProdutosTipos;
 use App\Enums\Status;
 use App\Filament\Resources\ProdutosResource\Pages;
+use App\Models\Ingrediente;
 use App\Models\Produto;
+use Dom\Text;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -99,6 +102,33 @@ class ProdutosResource extends Resource
                                     ->options(Status::class)
                                     ->placeholder('Selecione a situação do produto'),
                             ]),
+                        Section::make('Ingredientes')
+                            ->schema([
+                                Repeater::make('ingredientes')
+                                    ->label('')
+                                    ->required()
+                                    ->relationship('ingredientes')
+                                    ->schema([
+                                        Select::make('nome')
+                                            ->label('Nome do Ingrediente')
+                                            ->required()
+                                            ->native(false)
+                                            ->options(Ingrediente::all()->pluck('nome', 'id')),
+                                        Group::make()
+                                            ->schema([
+                                                TextInput::make('quantidade')
+                                                    ->label('Quantidade')
+                                                    ->required()
+                                                    ->numeric()
+                                                    ->placeholder('Digite a quantidade do ingrediente'),
+                                                TextInput::make('gramatura')
+                                                    ->label('Gramatura')
+                                                    ->required()
+                                                    ->numeric()
+                                                    ->placeholder('Digite a gramatura do ingrediente'),
+                                            ])->columns(2),
+                                    ]),
+                            ]),
 
                     ])
                     ->columnSpan(['lg' => 1]),
@@ -126,16 +156,16 @@ class ProdutosResource extends Resource
                     ->label('Tipo')
                     ->sortable()
                     ->badge()
-                    ->formatStateUsing(fn ($state) => ProdutosTipos::from($state)->getLabel())
-                    ->color(fn ($state) => ProdutosTipos::from($state)->getColor())
-                    ->icon(fn ($state) => ProdutosTipos::from($state)->getIcon()),
+                    ->formatStateUsing(fn($state) => ProdutosTipos::from($state)->getLabel())
+                    ->color(fn($state) => ProdutosTipos::from($state)->getColor())
+                    ->icon(fn($state) => ProdutosTipos::from($state)->getIcon()),
                 TextColumn::make('situacao')
                     ->label('Situação')
                     ->sortable()
                     ->badge()
-                    ->formatStateUsing(fn ($state) => Status::from($state)->getLabel())
-                    ->color(fn ($state) => Status::from($state)->getColor())
-                    ->icon(fn ($state) => Status::from($state)->getIcon()),
+                    ->formatStateUsing(fn($state) => Status::from($state)->getLabel())
+                    ->color(fn($state) => Status::from($state)->getColor())
+                    ->icon(fn($state) => Status::from($state)->getIcon()),
                 TextColumn::make('preco_base')
                     ->label('Preço Base')
                     ->sortable(),
