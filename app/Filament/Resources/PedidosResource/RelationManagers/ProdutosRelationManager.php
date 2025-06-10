@@ -36,12 +36,13 @@ class ProdutosRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                TextColumn::make('quantidade')
-                    ->label('Quantidade')
-                    ->sortable(),
+
                 ImageColumn::make('imagem')
                     ->label('Imagem')
                     ->disk('public'),
+                TextColumn::make('quantidade')
+                    ->label('Quantidade')
+                    ->sortable(),
                 TextColumn::make('nome')
                     ->label('Nome')
                     ->sortable(),
