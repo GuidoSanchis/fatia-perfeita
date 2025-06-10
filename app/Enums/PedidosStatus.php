@@ -27,7 +27,7 @@ enum PedidosStatus: string implements HasColor, HasIcon, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Novo => 'success',
+            self::Novo => 'secondary',
             self::EmAndamento => 'primary',
             self::Concluido => 'success',
             self::Cancelado => 'danger',
@@ -38,8 +38,8 @@ enum PedidosStatus: string implements HasColor, HasIcon, HasLabel
     public function getIcon(): ?string
     {
         return match ($this) {
-            self::Novo => 'heroicon-s-check',
-            self::EmAndamento => 'heroicon-s-lock-closed',
+            self::Novo => 'heroicon-s-clipboard',
+            self::EmAndamento => 'heroicon-s-clock',
             self::Concluido => 'heroicon-s-check',
             self::Cancelado => 'heroicon-s-x-mark',
         };
