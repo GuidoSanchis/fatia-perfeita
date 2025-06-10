@@ -153,6 +153,13 @@ class ProdutosSeeder extends Seeder
                 'preco_base' => 46.0,
                 'tipo' => 'rodizio',
                 'situacao' => 'ativo',
+            ],
+            [
+                'nome' => 'Rodízio Individual',
+                'descricao' => 'Rodízio de pizzas com direito a todas as pizzas do cardápio.',
+                'preco_base' => 49.90,
+                'tipo' => 'rodizio',
+                'situacao' => 'ativo',
             ]
         ];
 

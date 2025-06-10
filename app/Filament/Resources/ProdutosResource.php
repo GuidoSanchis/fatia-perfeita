@@ -105,16 +105,16 @@ class ProdutosResource extends Resource
                             ]),
                         Section::make('Ingredientes')
                             ->schema([
-                                Repeater::make('ingredientes')
+                                Repeater::make('ingredienteProduto')
                                     ->label('')
-                                    ->required()
-                                    ->relationship('ingredientes')
+                                    ->relationship()
                                     ->schema([
-                                        Select::make('nome')
-                                            ->label('Nome do Ingrediente')
-                                            ->required()
+                                        Select::make('ingrediente_id')
+                                            ->relationship('ingrediente', 'nome')
                                             ->native(false)
-                                            ->options(Ingrediente::all()->pluck('nome', 'id')),
+                                            ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                            ->required(),
+
                                         Group::make()
                                             ->schema([
                                                 TextInput::make('quantidade')

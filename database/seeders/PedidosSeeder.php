@@ -27,7 +27,8 @@ class PedidosSeeder extends Seeder
         // Adiciona produtos ao pedido 1
         $produtos1 = [
             ['produto' => 'Pizza 4 Queijos 20cm', 'quantidade' => 1, 'preco' => 00.00],
-            ['produto' => 'Pizza Calabresa 20cm', 'quantidade' => 1, 'preco' => 00.00]
+            ['produto' => 'Pizza Calabresa 20cm', 'quantidade' => 1, 'preco' => 00.00],
+            ['produto' => 'Rodízio Individual', 'quantidade' => 2, 'preco' => 49.90]
         ];
 
         foreach ($produtos1 as $item) {
@@ -65,7 +66,8 @@ class PedidosSeeder extends Seeder
         // Adiciona produtos ao pedido 2
         $produtos2 = [
             ['produto' => 'Pizza Portuguesa 20cm', 'quantidade' => 2, 'preco' => 00.00],
-            ['produto' => 'Pizza Frango com Catupiry 20cm', 'quantidade' => 1, 'preco' => 00.00]
+            ['produto' => 'Pizza Frango com Catupiry 20cm', 'quantidade' => 1, 'preco' => 00.00],
+            ['produto' => 'Rodízio Individual', 'quantidade' => 3, 'preco' => 49.90]
         ];
 
         foreach ($produtos2 as $item) {
@@ -104,7 +106,8 @@ class PedidosSeeder extends Seeder
         $produtos3 = [
             ['produto' => 'Pizza Pepperoni 4 Queijos 20cm', 'quantidade' => 1, 'preco' => 00.00],
             ['produto' => 'Pizza Marguerita 20cm', 'quantidade' => 1, 'preco' => 00.00],
-            ['produto' => 'Pizza Mozzarella 20cm', 'quantidade' => 1, 'preco' => 00.00]
+            ['produto' => 'Pizza Mozzarella 20cm', 'quantidade' => 1, 'preco' => 00.00],
+            ['produto' => 'Rodízio Individual', 'quantidade' => 3, 'preco' => 49.90]
         ];
 
         foreach ($produtos3 as $item) {
@@ -142,7 +145,8 @@ class PedidosSeeder extends Seeder
         // Adiciona produtos ao pedido 4
         $produtos4 = [
             ['produto' => 'Pizza Lannister 20cm', 'quantidade' => 1, 'preco' => 00.00],
-            ['produto' => 'Pizza Golden Aussie 20cm', 'quantidade' => 1, 'preco' => 00.00]
+            ['produto' => 'Pizza Golden Aussie 20cm', 'quantidade' => 1, 'preco' => 00.00],
+            ['produto' => 'Rodízio Individual', 'quantidade' => 2, 'preco' => 49.90]
         ];
 
         foreach ($produtos4 as $item) {

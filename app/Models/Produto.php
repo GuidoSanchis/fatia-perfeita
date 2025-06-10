@@ -23,10 +23,16 @@ class Produto extends Model
         return $this->belongsToMany(Pedido::class)->withPivot('quantidade')->withPivot('preco')->withTimestamps();
     }
 
+    public function ingredienteProduto()
+    {
+        return $this->hasMany(IngredienteProduto::class);
+    }
+
     public function ingredientes()
     {
         return $this->belongsToMany(Ingrediente::class)
-            ->withPivot('quantidade', 'gramatura')
+            ->using(IngredienteProduto::class)
+            ->withPivot(['quantidade', 'gramatura'])
             ->withTimestamps();
     }
 }

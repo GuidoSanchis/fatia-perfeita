@@ -18,6 +18,7 @@ class Ingrediente extends Model
     public function produtos()
     {
         return $this->belongsToMany(Produto::class)
+                    ->using(IngredienteProduto::class)
                     ->withPivot('quantidade', 'gramatura')
                     ->withTimestamps();
     }
